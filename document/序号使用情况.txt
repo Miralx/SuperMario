@@ -1,0 +1,29 @@
+text_index
+1.info_text
+2.rule_text
+3.prompt_text
+4.game_over_text
+5.summary_text
+
+sprite_text
+1   mario
+2   enemy   从2开始是enemy
+3   award   从200开始是奖励
+4   trap      从400开始是trap
+5   1000~1000+tile_map大小  是 tile_map
+
+img_index
+1.brick
+2.pipe
+3.award1
+4.award0
+5.box
+7.castle
+8.cloud
+9.hill
+10.sky
+
+sound_index
+
+depth_setting
+100 tile_map
