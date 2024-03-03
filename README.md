@@ -9,6 +9,7 @@ visual studio2014
 AppGameKit
 
 ## 内容
+AGK为图片资源  
 document为开发时的项目文档  
 my_macro.h为相关类、函数定义  
 my_function为具体功能函数实现  
