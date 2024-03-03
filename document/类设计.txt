@@ -1,0 +1,203 @@
+2022/10/19/23:18
+1.基类Sprite
+成员：
+	1.sprite_index    
+	2.img_file
+方法：
+	Sprite
+	~Sprite
+	赋值函数：
+	1.create_sprite     // 创建完设置为不可见
+	2.set_position
+	3.set_x
+	4.set_y
+	
+	取值函数
+	1.get_x
+	2.get_y
+	3.get_sprite_index
+	4.get_img_file
+
+2.马里奥类 （继承基类）Mario
+成员：
+	1.move_state     移动状态：  -1：移动     0：静止     1：跳跃     2:下降
+	2.direction      方向:    -1：左	1：右
+	3.jump_dist     跳跃距离
+	4.armed  是否有武器
+	5.health    生命值初始化为3
+	6.exist_state   存在状态   1：存活    0：死亡     2：变大      3：胜利
+	7.current_frame  当前的帧数 1~10
+	8.cnt   通过简单计数来控制帧率
+	9.pre_y
+	9.unmatched  //用于无敌计时
+方法：
+	Mario
+	~Mario
+
+	取值函数
+	1.get_exist_state
+	2.get_direction
+	3.get_current_frame
+	4.get_cnt   返回cnt,cnt自增1
+	5.get_move_state
+	6.get_health
+	7.get_pre_y
+	8.get_jump_dist
+	9.get_unmatched
+
+	控制函数
+	1.move_left
+	2.move_right
+	3.jump_left
+	4.jump_right
+	5.attack    发动远程攻击
+	6.set_direction
+	7.set_move_state
+	8.set_health
+	9.set_exsit_state
+	10.init_mario   //游戏开始时需要初始化mario
+	11.set_jump_dist
+	12.set_unmatched
+
+3.敌人类（继承基类） Enemy
+成员：
+	1.kind    敌人种类   1：蘑菇怪    2：乌龟怪
+	2.direction      方向:    -1：左	1：右
+	3.exist_state    存在状态   1：存活    0：死亡    2：其他（乌龟）
+	4.moved_dist   相对于第一块tile的移动距离
+	5.dead_time  死亡时间
+方法：
+	Enemy
+	~Enemy
+
+	1.get_direction
+	2.get_exist_state
+	3.get_moved_dist
+	4.get_dead_time
+	5.get_kind
+
+	控制函数
+	1.set_direction
+	2.set_exist_state
+	3.init_enemy  
+	4.set_moved_dist
+	5.set_dead_time
+
+4.游戏控制类Game
+成员：
+	1.g_state     游戏状态：0：游戏信息介绍     1：规则介绍     2：开始界面   3：play    4：game_over   5：summary   输出当前游戏信息
+	2.score   得分
+	3.tile_map   存储地图
+	//text index
+	4.info_text_index    1
+	5.rule_text_index    2
+	6.prompt_text_index 3
+	7.game_oover_text_index  4
+	8.summary_text_index   5
+	//tile map img index
+	9.brick = 1
+	10.pipe = 2
+	11.award1 = 3
+	12.award0 = 4;
+	13.box = 5
+	14.castle = 7
+	15.cloud = 8
+	16.hill = 9
+	17.sky = 10
+方法：
+	Game
+	~Game
+
+	取值函数
+	1.get_g_state
+	2.get_info_text_index
+	3.get_rule_text_index
+	4.get_prompt_text_index
+	5.get_game_over_text_index
+	6.get_summary_text_index
+	7.get_mario_lu_tile    mario包围盒四个顶点进行碰撞检测，返回各顶点所在坐标区域的tile类型   后全改为sprite 通用
+	8get_mario_ru_tile	    实现原理即下落时的碰撞检测
+	9.get_mario_ld_tile
+	10.get_marip_rd_tile
+	11.get_mario_up_tile     检测mario包围盒上下左右四个中点
+	12.get_mario_down_tile
+	13.get_mario_left_tile
+	14.get_mario_right_tile
+	15.check_collision_ways  //检测mario与其他精灵的碰撞方式是踩 还是 碰撞
+
+	控制函数
+	1.display_info
+	2.hide_info
+	3.display_rules
+	4.hide_rules
+	5.play_game
+	6.hide_game
+	7.display_tiles
+	8.load_tile_img
+	9.display_prompt
+	10.hide_prompt
+	11.display_game_over
+	12.hide_game_over
+	13.display_summary
+	14.hide_summary
+	15.hide_tiles
+	16.init_tiles   //设置depth!   目前全设置成了100
+	17.change_entire_tile_x    //整体改变tile_sprite坐标
+	18.move_mario
+	19.check_for_collision   //检测mario碰撞
+	20.init_tile_position       //将tile_map的坐标设置为初始值
+	21.move_enemy
+	22.add_score
+	23.move_enemys
+	24.move_awards
+	25.move_traps
+
+
+5.奖励类Award
+成员：
+	1.exist_state   //存在状态  -1：隐藏    0：被mario吃掉   1：存活状态
+	2.direction    //一些奖励可能会移动，需要方向
+	3.kind           //种类   1：金币   2：蘑菇
+	4.moved_dist   //相对于第一个tile的移动距离
+
+方法：
+	Award()
+	~Award()
+
+	取值函数
+	1.get_exist_state
+	2.get_direction
+	3.get_kind
+	4.get_moved_dist
+
+	赋值函数
+	1.init_award
+	2.set_exist_state
+	3.set_direction
+	4.set_moved_dist
+
+6.陷阱类Trap
+成员：
+	1.exist_state   0：休眠     1：激活
+	2.direction
+	3.kind    1：坤坤   2：篮球
+	4.moved_dist
+	5.trigger_x   //触发位置
+	6.trigger_y
+
+
+方法：
+	Trap()
+	~Trap()
+
+	1.get_exist_state
+	2.get_direction
+	3.get_kind
+	4.get_moved_dist
+	5.get_trigger_x();
+	6.get_trigger_y();
+
+	1.set_exist_state
+	2.set_direction
+	3.init_trap
+	4.set_moved_dist
